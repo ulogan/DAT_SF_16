@@ -1,0 +1,12 @@
+:
+
+URL=https://bigml.io/andromeda/dataset
+
+export BIGML_USERNAME=loganathanu
+export BIGML_API_KEY=5303191159b55da23e7d5627a2facb227a7560b7
+export BIGML_AUTH="username=$BIGML_USERNAME;api_key=$BIGML_API_KEY"
+
+curl ${URL}?$BIGML_AUTH \
+    -X POST \
+    -H 'content-type: application/json' \
+    -d '{"source": "source/50a4527b3c1920186d000041"}'

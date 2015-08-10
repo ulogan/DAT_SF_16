@@ -1,0 +1,36 @@
+
+Brought the data from BigML, Us Car accidents in 2011.
+
+Analysize the effect of Age with respect to accidents.
+
+Fields (total 16):
+
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 4999 entries, 0 to 4998
+Data columns (total 16 columns):
+    State                      4999 non-null object
+    Atmospheric Condition      4999 non-null object
+    Crash Date                 4999 non-null object
+    Fatalities in crash        4999 non-null int64
+    Roadway                    4999 non-null object
+    Age                        4929 non-null float64
+    Alcohol Results            2293 non-null float64
+    Person Type                4999 non-null object
+    Drug Involvement           4999 non-null object
+    Race                       2320 non-null object
+    Gender                     4999 non-null object
+    Injury Severity            4999 non-null object
+    Crash Date.year            4999 non-null int64
+    Crash Date.month           4999 non-null int64
+    Crash Date.day-of-month    4999 non-null int64
+    Crash Date.day-of-week     4999 non-null int64
+    dtypes: float64(2), int64(5), object(9)
+
+Total Rows (4299)
+
+Total values which are null: 5455
+    Age                        70
+    Race                     2679
+    Alcohol Results          2706
+
+
