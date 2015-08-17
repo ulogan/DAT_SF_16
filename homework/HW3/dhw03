@@ -1,0 +1,12 @@
+:
+
+getData()
+{
+    CSV="pima-indians-diabetes.csv"
+    wget -O ${CSV} https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data
+    wget -O description https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.names
+    HDR="pregnantNo,plasmaGlucose,bloodPressure,triceps,serumInsulin,bodyMass,diabetesPedigree,age,target"
+    sed -i '1i\'"${HDR}" ${CSV}
+}
+
+getData

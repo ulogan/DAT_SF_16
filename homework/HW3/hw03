@@ -1,0 +1,88 @@
+#!/Users/logan/anaconda/bin/python
+
+import numpy as np
+import pandas as pd
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.neighbors import KNeighborsClassifier
+from bokeh.plotting import figure, output_file, show, vplot
+
+# Read the csv file
+df = pd.read_csv("pima-indians-diabetes.csv", header = 0).dropna()
+
+to_predict = "target"
+
+# since I did not have an hypothosis I chose all the fields
+features = ['pregnantNo', 'plasmaGlucose', 'bloodPressure', 'triceps', 'serumInsulin', \
+                'bodyMass', 'diabetesPedigree', 'age']
+
+data = df[features]
+label = df[to_predict]
+
+# number of folds
+folds = 5;
+
+def prnNAs(data):
+    #print the columns with na's
+    print "Has NA's"
+    print data.isnull().sum() > 0
+
+def cross_validate_df(data, label, kfold, model):
+    positions = data.index.values
+    np.random.shuffle(positions)
+    cv_score = 0
+
+    for i in range(kfold):
+        pos_var = len(data) / kfold
+
+        test_slice = positions[i * pos_var: (i + 1) * pos_var]
+
+        train_1 = positions[ : i * pos_var]
+        train_2 = positions[ (i + 1) * pos_var : ]
+
+        train_slice = np.concatenate([train_1, train_2])
+
+        model.fit(data.loc[train_slice], label.loc[train_slice])
+        k_score = model.score(data.loc[test_slice], label.loc[test_slice]) * 100;
+
+        cv_score += k_score
+
+    return cv_score / kfold
+
+def NaiveBayes():
+    # create a model for NaiveBayes
+    model = MultinomialNB()
+
+    # cross validate data
+    print cross_validate_df(data, label, folds, model);
+
+def knnNeighbor():
+    # number of neighbors
+    neighbors = 50
+
+    nn = range(2, neighbors)
+
+    #scoreArray
+    scoreArray = []
+
+    # for each neighbors
+    for n in nn:
+        # create a model with n neighbors
+        model = KNeighborsClassifier(n)
+
+        scoreArray.append(cross_validate_df(data, label, folds, model))
+
+    plot = figure(title = "Neighbors vs Score")
+    plot.line(nn, scoreArray)
+    plot.xaxis.axis_label = "Neighbors"
+    plot.yaxis.axis_label = "Score"
+
+    output_file("diabetes.html", title = "Neighbors vs Score")
+
+    p = vplot(plot)
+    show(p)
+
+print "KNN"
+knnNeighbor()
+
+print "NaiveBayes"
+NaiveBayes()
