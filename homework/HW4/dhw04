@@ -1,0 +1,10 @@
+:
+
+getData()
+{
+    CSV="redWineQuality.csv"
+    wget -O ${CSV} https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv
+    wget -O redWineDescription https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality.names
+}
+
+getData
